@@ -1,17 +1,6 @@
+import { UIState, CurrentTab } from './../../model/ui';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../index';
-
-interface UIState {
-  currentTab:
-    | 'inbox'
-    | 'starred'
-    | 'snoozed'
-    | 'chats'
-    | 'sent'
-    | 'drafts'
-    | 'notes';
-  isLoading: boolean;
-}
 
 const initialState: UIState = {
   currentTab: 'inbox',
@@ -25,10 +14,13 @@ export const uiSlice = createSlice({
     clearUI: (state) => {
       state = initialState;
     },
+    setCurrentTab: (state, { payload }: PayloadAction<CurrentTab>) => {
+      state.currentTab = payload;
+    },
   },
 });
 
-export const { clearUI } = uiSlice.actions;
+export const { clearUI, setCurrentTab } = uiSlice.actions;
 
 export const selectUI = (state: RootState) => state.ui;
 

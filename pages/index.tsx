@@ -1,11 +1,11 @@
 import Head from 'next/head';
-import Navigation from '../components/navigation';
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div>
       <Head>
-        <title>Gmail</title>
+        <title>Gmail - Login</title>
+        <meta name="description" content="Gmail - Mail" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
     </div>
