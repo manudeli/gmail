@@ -1,3 +1,5 @@
 import userReducer from './userSlice';
+import inboxReducer from './inboxSlice';
+import uiReducer from './uiSlice';
 
-export { userReducer };
+export { userReducer, inboxReducer, uiReducer };

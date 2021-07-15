@@ -1,10 +1,12 @@
-import { userReducer } from './slices';
+import { userReducer, inboxReducer, uiReducer } from './slices';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 const rootReducer = combineReducers({
   user: userReducer,
+  inbox: inboxReducer,
+  ui: uiReducer,
 });
 
 const persistConfig = {
