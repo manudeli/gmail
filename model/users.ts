@@ -9,14 +9,14 @@ export interface UserProfile {
 export interface User {
   userProfiles: UserProfile[];
   userProfile: UserProfile;
-  starThreads: { [x: string]: { isStar: boolean } };
-  starMails: { [x: string]: { isStar: boolean } };
-  importantMails: { [x: string]: { isImportant: boolean } };
-  snoozedThreads: { [x: string]: { openAt: number } };
+  starThreads: { [threadId: string]: { isStar: boolean } };
+  starMails: { [mailId: string]: { isStar: boolean } };
+  importantMails: { [mailId: string]: { isImportant: boolean } };
+  snoozedThreads: { [mailId: string]: { openAt: number } };
   deletedThreads: {
-    [x: string]: [
+    [threadId: string]: [
       { isDeleted: boolean },
-      { [x: string]: { isDeleted: boolean } }
+      { [mailId: string]: { isDeleted: boolean } }
     ];
   };
 }

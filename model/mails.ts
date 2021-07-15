@@ -15,11 +15,11 @@ export interface Mail {
 export interface Thread {
   title: string;
   id: ThreadId;
-  mails: { [x: string]: Mail };
+  mails: { [mailId: string]: Mail };
 }
 
 export interface MailBox {
   inboxMails: MailId[];
   sentMails: MailId[];
-  checkedMails: { [x: string]: boolean };
+  checkedMails: { [mailId: string]: boolean };
 }
