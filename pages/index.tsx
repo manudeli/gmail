@@ -10,7 +10,6 @@ export default function HomePage() {
       <Head>
         <title>Gmail - Login</title>
         <meta name="description" content="Gmail - Mail" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <div
         className="flex flex-col justify-center items-center border border-gray-200

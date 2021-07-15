@@ -31,7 +31,6 @@ export default function MailPage() {
           Gmail - {capitalizeFirstLetter(currentTab)}
           {}
         </title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex flex-col min-h-screen">
         <MailLayout>{currentTab}</MailLayout>

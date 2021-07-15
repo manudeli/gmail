@@ -17,6 +17,7 @@ function App({ Component, pageProps }: AppProps) {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet"
         />
+        <link rel="icon" href="/logo_gmail.png" />
       </Head>
       <PersistGate loading={null} persistor={persistor}>
         <Component {...pageProps} />
