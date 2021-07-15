@@ -1,17 +1,26 @@
 import 'tailwindcss/tailwind.css';
+import '../style/global.css';
 import { store } from '../store';
 import { Provider } from 'react-redux';
-
 import { AppProps } from 'next/app';
-import Navigation from '../components/navigation';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
+import Head from 'next/head';
 
 function App({ Component, pageProps }: AppProps) {
+  let persistor = persistStore(store);
+
   return (
     <Provider store={store}>
-      <div className="flex">
-        <Navigation />
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
+        />
+      </Head>
+      <PersistGate loading={null} persistor={persistor}>
         <Component {...pageProps} />
-      </div>
+      </PersistGate>
     </Provider>
   );
 }
