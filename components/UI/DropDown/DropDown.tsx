@@ -7,26 +7,46 @@ import { DropDownContext } from './DropDownContext';
 
 interface DropDownProps {
   className?: string;
+  isShown: number;
+  onClickToggle: any;
+  onClickItem: any;
+  onMouseLeave: any;
+  toggleRef: any;
+  selectListRef: any;
+  transformOrigin: any;
 }
 
 const DropDown: React.FC<DropDownProps> & {
   Toggle: typeof Toggle;
   List: typeof List;
   Item: typeof Item;
-} = ({ className, children }) => {
-  const [isShown, setIsShown] = useState(false);
-
+} = ({
+  className,
+  children,
+  isShown,
+  onClickToggle,
+  onClickItem,
+  onMouseLeave,
+  toggleRef,
+  selectListRef,
+  transformOrigin,
+}) => {
   return (
-    <div className={className}>
+    <ul className={className} onMouseLeave={onMouseLeave}>
       <DropDownContext.Provider
         value={{
           isShown,
-          setIsShown,
+          onClickToggle,
+          onClickItem,
+          onMouseLeave,
+          toggleRef,
+          selectListRef,
+          transformOrigin,
         }}
       >
         {children}
       </DropDownContext.Provider>
-    </div>
+    </ul>
   );
 };
 

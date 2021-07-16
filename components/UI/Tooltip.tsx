@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React, { useState, useRef } from 'react';
 import Portal from './core/Portal';
+import { getPoint, position } from './core/postionHelpers';
 
 const StyledTooltip = styled.span.attrs((p) => ({
   bg: p.bg || 'dark',
@@ -28,84 +29,6 @@ const StyledTooltip = styled.span.attrs((p) => ({
   transform-origin: ${(p) => position(p.placment).negate()};
   transform: scale(${(p) => (p.show ? 1 : 0.7)});
 `;
-
-const position = (p) => ({
-  current: p,
-  negate() {
-    if (this.current === 'left') return 'right';
-    if (this.current === 'right') return 'left';
-    if (this.current === 'top') return 'bottom';
-    if (this.current === 'bottom') return 'top';
-  },
-  isHorizontal() {
-    return this.current === 'left' || this.current === 'right';
-  },
-  isVertical() {
-    return this.current === 'top' || this.current === 'bottom';
-  },
-});
-
-const point = () => ({
-  x: null,
-  y: null,
-  reset(p) {
-    this.x = p.x;
-    this.y = p.y;
-  },
-  restrictRect(rect) {
-    if (this.x < rect.l) this.x = rect.l;
-    else if (this.x > rect.r) this.x = rect.r;
-    if (this.y < rect.t) this.y = rect.t;
-    else if (this.y > rect.b) this.y = rect.b;
-  },
-});
-
-const getPoint = (el, tt, placement, space) => {
-  let recurCount = 0;
-  const pt = point();
-  const bdys = {
-    l: space,
-    t: space,
-    r: document.body.clientWidth - (tt.clientWidth + space),
-    b: window.innerHeight - (tt.clientHeight + space),
-  };
-  const elRect = el.getBoundingClientRect();
-
-  return (function recursive(placement) {
-    recurCount++;
-    const pos = position(placement);
-    switch (pos.current) {
-      case 'left':
-        pt.x = elRect.left - (tt.offsetWidth + space);
-        pt.y = elRect.top + (el.offsetHeight - tt.offsetHeight) / 2;
-        break;
-      case 'right':
-        pt.x = elRect.right + space;
-        pt.y = elRect.top + (el.offsetHeight - tt.offsetHeight) / 2;
-        break;
-      case 'top':
-        pt.x = elRect.left + (el.offsetWidth - tt.offsetWidth) / 2;
-        pt.y = elRect.top - (tt.offsetHeight + space);
-        break;
-      default:
-        pt.x = elRect.left + (el.offsetWidth - tt.offsetWidth) / 2;
-        pt.y = elRect.bottom + space;
-    }
-
-    if (recurCount < 3)
-      if (
-        (pos.isHorizontal() && (pt.x < bdys.l || pt.x > bdys.r)) ||
-        (pos.isVertical() && (pt.y < bdys.t || pt.y > bdys.b))
-      ) {
-        pt.reset(recursive(pos.negate()));
-      }
-
-    // restrict to rect boundary
-    pt.restrictRect(bdys);
-
-    return pt;
-  })(placement);
-};
 
 interface TooltipProps {
   text: string;

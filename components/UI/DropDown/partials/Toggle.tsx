@@ -6,10 +6,10 @@ interface ToggleProps {
 }
 
 export const Toggle: React.FC<ToggleProps> = ({ className, children }) => {
-  const { isShown, setIsShown } = useContext(DropDownContext);
+  const { isShown, onClickToggle } = useContext(DropDownContext);
 
   return (
-    <div className={className} onClick={() => setIsShown(!isShown)}>
+    <div className={className} onClick={onClickToggle}>
       {children}
     </div>
   );
