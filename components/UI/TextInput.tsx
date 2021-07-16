@@ -1,22 +1,28 @@
 import { useState } from 'react';
+import IconButton from './IconButton';
 
 interface TextInputProps {
-  type: 'text' | 'password' | 'email';
+  icon?;
+  type?: 'text' | 'password' | 'email';
   value?: string;
   placeholder?: string;
   fill?: boolean;
   className?;
+  children?;
   [props: string]: any;
   onChange?(e: any): any;
 }
 
 function TextInput({
-  type,
+  icon,
+  iconRights,
+  type = 'text',
   value,
   placeholder,
   fill,
   className,
   onChange,
+  children,
   ...props
 }: TextInputProps) {
   const [focus, setFocus] = useState(false);
@@ -25,16 +31,18 @@ function TextInput({
     <div
       {...props}
       className={`relative
-      border rounded-md flex-col
-    ${fill ? 'flex flex-1 ' : 'inline-block'} 
+      border rounded-md flex items-center 
+    ${fill ? 'flex-1' : 'inline-block'} 
     overflow-hidden
     ${className}
     `}
     >
+      {icon && <IconButton icon={icon} />}
       <input
-        className="outline-none py-3 px-5 text-base
+        style={{ background: 0 }}
+        className={`outline-none py-3 ${icon ? 'pr5' : 'px-5'}  text-base 
         hover:bg-black hover:bg-opacity-5
-        transition-all"
+        transition-all flex-1`}
         onFocus={() => {
           setFocus(true);
         }}
@@ -48,6 +56,7 @@ function TextInput({
           if (e.keyCode === 27) e.target.blur();
         }}
       />
+      {children}
 
       <div
         className={`absolute  left-0 right-0 bottom-0 m-auto

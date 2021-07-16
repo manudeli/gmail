@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import MailLayout from '../../components/MailLayout';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setCurrentTab } from '../../store/slices/uiSlice';
+import ThreadList from '../../components/ThreadList/ThreadList';
 
 export default function MailPage() {
   const router = useRouter();
@@ -14,7 +15,10 @@ export default function MailPage() {
     str.split(' ').map((char) => char.charAt(0).toUpperCase() + char.slice(1));
 
   useEffect(() => {
+    console.log(router.query);
+
     const hashRoute = router.asPath.match(/#([a-z0-9]+)/gi);
+    console.log(hashRoute);
 
     if (hashRoute && hashRoute.length === 1) {
       const hashValue = hashRoute[0].replace('#', '') as CurrentTab;
@@ -27,13 +31,12 @@ export default function MailPage() {
   return (
     <div>
       <Head>
-        <title>
-          Gmail - {capitalizeFirstLetter(currentTab)}
-          {}
-        </title>
+        <title>Gmail - {capitalizeFirstLetter(currentTab)}</title>
       </Head>
       <div className="flex flex-col min-h-screen">
-        <MailLayout>{currentTab}</MailLayout>
+        <MailLayout>
+          <ThreadList />
+        </MailLayout>
       </div>
     </div>
   );

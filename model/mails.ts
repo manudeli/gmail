@@ -8,18 +8,18 @@ export interface Mail {
   threadId: ThreadId;
   createdAt: number;
   from: Uid;
-  to: Uid[];
+  to: { [uid: string]: Boolean };
   content: MdString;
 }
 
 export interface Thread {
   title: string;
   id: ThreadId;
-  mails: { [mailId: string]: Mail };
+  mails: MailId[];
 }
 
-export interface MailBox {
-  inboxMails: MailId[];
-  sentMails: MailId[];
-  checkedMails: { [mailId: string]: boolean };
+export interface ThreadBox {
+  threads: Thread[];
+  sentThreads: Thread[];
+  checkedThreads: { [mailId: string]: boolean };
 }

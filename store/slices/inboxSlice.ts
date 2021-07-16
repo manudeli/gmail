@@ -1,11 +1,11 @@
-import { MailBox } from './../../model/mails';
+import { Thread, ThreadBox } from './../../model/mails';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../index';
 
-const initialState: MailBox = {
-  inboxMails: [],
-  sentMails: [],
-  checkedMails: {},
+const initialState: ThreadBox = {
+  threads: [],
+  sentThreads: [],
+  checkedThreads: {},
 };
 
 export const inboxSlice = createSlice({
@@ -15,10 +15,13 @@ export const inboxSlice = createSlice({
     clearInbox: (state) => {
       state = initialState;
     },
+    setThreads: (state, { payload }: PayloadAction<Thread[]>) => {
+      state.threads = payload;
+    },
   },
 });
 
-export const { clearInbox } = inboxSlice.actions;
+export const { clearInbox, setThreads } = inboxSlice.actions;
 
 export const selectInbox = (state: RootState) => state.inbox;
 
