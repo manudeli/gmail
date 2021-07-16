@@ -1,9 +1,12 @@
+import { ThreadId } from './mails';
+
 export type Uid = string;
 
 export interface UserProfile {
-  uid: Uid;
+  id: Uid;
   username: string;
   email: string;
+  image: string;
 }
 
 export interface User {

@@ -7,6 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import Head from 'next/head';
 import MailLayout from '../components/MailLayout';
+import { useAppSelector } from '../store/hooks';
 
 function App({ Component, pageProps }: AppProps) {
   let persistor = persistStore(store);

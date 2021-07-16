@@ -4,7 +4,7 @@ import type { RootState } from '../index';
 
 const initialState: User = {
   userProfiles: [],
-  userProfile: { uid: '', username: '', email: '' },
+  userProfile: { id: '', username: '', email: '', image: '' },
   starThreads: {},
   starMails: {},
   importantMails: {},
@@ -19,13 +19,20 @@ export const userSlice = createSlice({
     logout: (state) => {
       state = initialState;
     },
-    setUserProfile: (state, action: PayloadAction<UserProfile>) => {
-      state.userProfile = action.payload;
+    setUserProfiles: (state, { payload }) => {
+      state.userProfiles = payload;
+    },
+    setUserProfile: (state, { payload }: PayloadAction<UserProfile>) => {
+      state.userProfile = payload;
+    },
+    setLogin: (state, { payload }) => {
+      state.userProfile = payload;
     },
   },
 });
 
-export const { logout, setUserProfile } = userSlice.actions;
+export const { logout, setUserProfile, setUserProfiles, setLogin } =
+  userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;
 

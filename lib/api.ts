@@ -4,13 +4,34 @@ import { ThreadId, MailId } from '../model/mails';
 
 const users = {
   'user-1': {
+    username: 'Jonghyeon Ko',
+    email: 'flowithusdev@gmail.com',
     threads: ['thread-1', 'thread-2'],
+    image: '/assets/profiles/profile0.jpg',
   },
-  'mail-2': {
-    threads: [],
+  'user-2': {
+    username: 'Martin L. Olson',
+    email: 'martin@email.com',
+    threads: ['thread-1', 'thread-2'],
+    image: '/assets/profiles/profile1.jpg',
   },
-  'mail-3': {
-    threads: [],
+  'user-3': {
+    username: 'Nadine T. Campos',
+    email: 'nadine@email.com',
+    threads: ['thread-1', 'thread-2'],
+    image: '/assets/profiles/profile2.jpg',
+  },
+  'user-4': {
+    username: 'Casey O. Robbins',
+    email: 'casey@email.com',
+    threads: ['thread-1', 'thread-2'],
+    image: '/assets/profiles/profile3.jpg',
+  },
+  'user-5': {
+    username: 'Carla J. Naquin',
+    email: 'carla@email.com',
+    threads: ['thread-1', 'thread-2'],
+    image: '/assets/profiles/profile4.jpg',
   },
 };
 
@@ -52,6 +73,10 @@ const threads = {
     mails: ['mail-2'],
   },
 };
+
+export function getAllUsers() {
+  return Object.keys(users).map((key) => ({ id: key, ...users[key] }));
+}
 
 function getMailIds(threadId: ThreadId) {
   return threads[threadId].mails;
