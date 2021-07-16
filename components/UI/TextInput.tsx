@@ -2,19 +2,19 @@ import { useState } from 'react';
 import IconButton from './IconButton';
 
 interface TextInputProps {
-  icon?;
+  iconLeft?;
   type?: 'text' | 'password' | 'email';
   value?: string;
   placeholder?: string;
   fill?: boolean;
   className?;
-  children?;
+  iconRight?;
   [props: string]: any;
   onChange?(e: any): any;
 }
 
 function TextInput({
-  icon,
+  iconLeft,
   iconRights,
   type = 'text',
   value,
@@ -22,7 +22,7 @@ function TextInput({
   fill,
   className,
   onChange,
-  children,
+  iconRight,
   ...props
 }: TextInputProps) {
   const [focus, setFocus] = useState(false);
@@ -33,14 +33,13 @@ function TextInput({
       className={`relative
       border rounded-md flex items-center 
     ${fill ? 'flex-1' : 'inline-block'} 
-    overflow-hidden
     ${className}
     `}
     >
-      {icon && <IconButton icon={icon} />}
+      {iconLeft}
       <input
         style={{ background: 0 }}
-        className={`outline-none py-3 ${icon ? 'pr5' : 'px-5'}  text-base 
+        className={`outline-none py-3 ${iconLeft ? 'pr5' : 'px-5'}  text-base 
         hover:bg-black hover:bg-opacity-5
         transition-all flex-1`}
         onFocus={() => {
@@ -56,8 +55,7 @@ function TextInput({
           if (e.keyCode === 27) e.target.blur();
         }}
       />
-      {children}
-
+      {iconRight}
       <div
         className={`absolute  left-0 right-0 bottom-0 m-auto
       border

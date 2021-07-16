@@ -9,17 +9,17 @@ function MailLayout({ children }) {
   const isloggedIn = useAppSelector((state) => state.user.userProfile.id);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen overflow-hidden">
       {isloggedIn && <TopNavigation />}
       <div className="flex flex-1">
         {isloggedIn && <MailNavigation />}
         <div className="flex-1">
           {isloggedIn && (
             <div className="flex bg-gray-50 border-b">
-              <IconButton icon="refresh" />
-              <IconButton icon="more_vert" />
-              <IconButton icon="chevron_left" />
-              <IconButton icon="chevron_right" />
+              <IconButton icon="refresh" tooltip="Refresh" />
+              <IconButton icon="more_vert" tooltip="More" />
+              <IconButton icon="chevron_left" tooltip="Newer" />
+              <IconButton icon="chevron_right" tooltip="Older" />
             </div>
           )}
           {children}
