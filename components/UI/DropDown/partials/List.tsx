@@ -49,6 +49,7 @@ const StyledUnOrdederdList = styled.ul`
   pointer-events: ${(p) => (p.isShown === 0 ? 'none' : '')};
   > li {
     font-size: 16px;
+    white-space: pre;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.05);

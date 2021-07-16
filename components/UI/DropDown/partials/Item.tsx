@@ -14,7 +14,7 @@ export const Item: React.FC<ItemProps> = ({
   const { onClickItem } = useContext(DropDownContext);
 
   return (
-    <li onClick={onClickItem} {...props}>
+    <li onClick={(e) => onClickItem(e)} {...props}>
       {children}
     </li>
   );
