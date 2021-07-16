@@ -17,17 +17,13 @@ function Thread() {
       <Head>
         <title>Gmail</title>
       </Head>
-      <div className="flex flex-col min-h-screen">
-        <MailLayout>
-          {router.query.threadId}
 
-          <ul>
-            {mails.map((mail) => (
-              <li>{mail.content}</li>
-            ))}
-          </ul>
-        </MailLayout>
-      </div>
+      {router.query.threadId}
+      <ul>
+        {mails.map((mail) => (
+          <li>{mail.content}</li>
+        ))}
+      </ul>
     </div>
   );
 }

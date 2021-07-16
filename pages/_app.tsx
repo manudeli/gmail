@@ -6,6 +6,7 @@ import { AppProps } from 'next/app';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import Head from 'next/head';
+import MailLayout from '../components/MailLayout';
 
 function App({ Component, pageProps }: AppProps) {
   let persistor = persistStore(store);
@@ -20,7 +21,9 @@ function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/logo_gmail.png" />
       </Head>
       <PersistGate loading={null} persistor={persistor}>
-        <Component {...pageProps} />
+        <MailLayout>
+          <Component {...pageProps} />
+        </MailLayout>
       </PersistGate>
     </Provider>
   );

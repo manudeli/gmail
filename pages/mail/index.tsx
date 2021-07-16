@@ -33,11 +33,7 @@ export default function MailPage() {
       <Head>
         <title>Gmail - {capitalizeFirstLetter(currentTab)}</title>
       </Head>
-      <div className="flex flex-col min-h-screen">
-        <MailLayout>
-          <ThreadList />
-        </MailLayout>
-      </div>
+      <ThreadList />
     </div>
   );
 }
