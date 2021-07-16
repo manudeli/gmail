@@ -11,12 +11,16 @@ export default function MailPage() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const currentTab = useAppSelector((state) => state.ui.currentTab);
+  const uid = useAppSelector((state) => state.user.userProfile.id);
   const capitalizeFirstLetter = (str: string) =>
     str.split(' ').map((char) => char.charAt(0).toUpperCase() + char.slice(1));
 
   useEffect(() => {
-    console.log(router.query);
+    if (!uid) {
+      router.replace('/');
+    }
 
+    console.log(router.query);
     const hashRoute = router.asPath.match(/#([a-z0-9]+)/gi);
     console.log(hashRoute);
 
@@ -25,6 +29,7 @@ export default function MailPage() {
       dispatch(setCurrentTab(hashValue));
     } else {
       router.push('/mail#inbox');
+      dispatch(setCurrentTab('inbox'));
     }
   }, [router.asPath]);
 
