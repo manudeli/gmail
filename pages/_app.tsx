@@ -7,26 +7,31 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import Head from 'next/head';
 import MailLayout from '../components/MailLayout';
-import { useAppSelector } from '../store/hooks';
+import Loading from '../components/UI/Loading';
+// Styled Component
+import { ThemeProvider } from 'styled-components';
+import theme from '../style/theme';
 
 function App({ Component, pageProps }: AppProps) {
   let persistor = persistStore(store);
 
   return (
-    <Provider store={store}>
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet"
-        />
-        <link rel="icon" href="/logo_gmail.png" />
-      </Head>
-      <PersistGate loading={null} persistor={persistor}>
-        <MailLayout>
-          <Component {...pageProps} />
-        </MailLayout>
-      </PersistGate>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <PersistGate loading={<Loading />} persistor={persistor}>
+          <Head>
+            <link
+              href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet"
+            />
+            <link rel="icon" href="/logo_gmail.png" />
+          </Head>
+          <MailLayout>
+            <Component {...pageProps} />
+          </MailLayout>
+        </PersistGate>
+      </Provider>
+    </ThemeProvider>
   );
 }
 

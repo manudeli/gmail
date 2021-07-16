@@ -9,7 +9,7 @@ function LoginList() {
 
   const clickUserProfile = (userProfile) => {
     dispatch(setLogin(userProfile));
-    router.push('/mail#inbox');
+    router.replace('/mail#inbox');
   };
 
   return (

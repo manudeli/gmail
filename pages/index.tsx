@@ -1,9 +1,7 @@
 import Head from 'next/head';
-import router from 'next/router';
 import { useEffect } from 'react';
 import GoogleLogo from '../components/GoogleLogo';
 import LoginList from '../components/LoginList/LoginList';
-import Button from '../components/UI/Button';
 
 import { getAllUsers } from '../lib/api';
 import { useAppDispatch } from '../store/hooks';

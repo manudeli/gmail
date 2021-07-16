@@ -14,8 +14,6 @@ function ThreadList() {
   ) as CurrentTab;
   const threads = useAppSelector((state) => state.inbox.threads) as Thread[];
 
-  console.log(threads);
-
   useEffect(() => {
     let newThreads = [];
     switch (currentTab) {

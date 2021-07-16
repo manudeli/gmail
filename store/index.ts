@@ -7,14 +7,14 @@ import {
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+const customizedMiddleware = getDefaultMiddleware({
+  serializableCheck: false,
+});
+
 const rootReducer = combineReducers({
   user: userReducer,
   inbox: inboxReducer,
   ui: uiReducer,
-});
-
-const customizedMiddleware = getDefaultMiddleware({
-  serializableCheck: false,
 });
 
 const persistConfig = {
@@ -29,6 +29,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
+  // devTools: process.env.NODE_ENV !== 'production',
   middleware: customizedMiddleware,
 });
 
