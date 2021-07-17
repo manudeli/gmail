@@ -2,31 +2,23 @@ import styled from 'styled-components';
 import React, { useContext } from 'react';
 import Portal from '../../core/Portal';
 import { DropDownContext } from '../DropDownContext';
-import { position } from '../../core/postionHelpers';
 
-interface ListProps {
-  className?: string;
-}
-
-export const List: React.FC<ListProps> = ({ className, children }) => {
+export const List: React.FC = ({ children }) => {
   const { isShown, selectListRef, toggleRef, transformOrigin, onMouseLeave } =
     useContext(DropDownContext);
 
   return (
-    <>
-      <Portal>
-        <StyledUnOrdederdList
-          ref={selectListRef}
-          className={className}
-          toggleRef={toggleRef}
-          isShown={isShown}
-          transformOrigin={transformOrigin}
-          onMouseLeave={onMouseLeave}
-        >
-          {children}
-        </StyledUnOrdederdList>
-      </Portal>
-    </>
+    <Portal>
+      <StyledUnOrdederdList
+        ref={selectListRef}
+        toggleRef={toggleRef}
+        isShown={isShown}
+        transformOrigin={transformOrigin}
+        onMouseLeave={onMouseLeave}
+      >
+        {children}
+      </StyledUnOrdederdList>
+    </Portal>
   );
 };
 
@@ -42,18 +34,9 @@ const StyledUnOrdederdList = styled.ul`
   padding: 2px;
   transform-origin: ${(p) => p.transformOrigin};
   z-index: 99999;
-  opacity: ${(p) => p.isShown};
+  opacity: ${(p) => (p.isShown ? 1 : 0)};
   transition: opacity 0.3s;
   box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.1);
-
-  pointer-events: ${(p) => (p.isShown === 0 ? 'none' : '')};
-  > li {
-    font-size: 16px;
-    white-space: pre;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.05);
-      transition: background-color 0.2s;
-    }
-  }
+  pointer-events: ${(p) => (p.isShown ? '' : 'none')};
+  padding: 8px 0;
 `;

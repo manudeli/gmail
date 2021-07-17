@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 export const DropDownContext = createContext<{
-  isShown: number;
+  isShown: boolean;
   onClickToggle: any;
   onClickItem: any;
   onMouseLeave: any;
@@ -9,7 +9,7 @@ export const DropDownContext = createContext<{
   selectListRef: any;
   transformOrigin: any;
 }>({
-  isShown: 0,
+  isShown: false,
   onClickToggle: null,
   onClickItem: null,
   onMouseLeave: null,

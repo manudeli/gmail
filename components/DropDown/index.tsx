@@ -8,19 +8,19 @@ interface Props {
   items: { label: string; id: string }[];
 }
 
-const Index: React.FC<Props> = ({
+const GoogleDropDown: React.FC<Props> = ({
   placement = 'bottom',
   space = 0,
   items = [],
 }) => {
-  const [isShown, setIsShown] = useState(0);
+  const [isShown, setIsShown] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
 
   const toggleRef = useRef({ x: 0, y: 0 });
   const selectListRef = useRef();
 
   const toggleClick = (e) => {
-    setIsShown((prev) => (prev ? 0 : 1));
+    setIsShown((prev) => !prev);
 
     toggleRef.current = getPoint(
       e.currentTarget,
@@ -28,17 +28,15 @@ const Index: React.FC<Props> = ({
       placement,
       space
     );
-
-    console.log(toggleRef.current);
   };
 
   const itemClick = (e) => {
-    setIsShown(0);
+    setIsShown(false);
     setSelectedItemId(e.target.id);
   };
 
   const mouseLeaveHandle = () => {
-    setIsShown(0);
+    setIsShown(false);
   };
 
   return (
@@ -51,8 +49,14 @@ const Index: React.FC<Props> = ({
       selectListRef={selectListRef}
       transformOrigin={position(placement).negate()}
     >
-      <DropDown.Toggle className="bg-white px-4 py-2 rounded-md border hover:bg-black hover:bg-opacity-5 transition-all">
-        {selectedItemId === null ? 'Select' : selectedItemId}
+      <DropDown.Toggle>
+        {selectedItemId === null ? (
+          <span className="material-icons text-gray500 text-center">
+            arrow_drop_down
+          </span>
+        ) : (
+          selectedItemId
+        )}
       </DropDown.Toggle>
       <DropDown.List>
         {items.map((item) => (
@@ -65,4 +69,4 @@ const Index: React.FC<Props> = ({
   );
 };
 
-export default Index;
+export default GoogleDropDown;

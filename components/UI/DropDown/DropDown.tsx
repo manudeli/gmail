@@ -7,7 +7,7 @@ import { DropDownContext } from './DropDownContext';
 
 interface DropDownProps {
   className?: string;
-  isShown: number;
+  isShown: boolean;
   onClickToggle: any;
   onClickItem: any;
   onMouseLeave: any;
