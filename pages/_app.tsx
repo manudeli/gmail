@@ -18,7 +18,7 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <PersistGate loading={<Loading />} persistor={persistor}>
+        <PersistGate loading={null} persistor={persistor}>
           <Head>
             <link
               href="https://fonts.googleapis.com/icon?family=Material+Icons"

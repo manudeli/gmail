@@ -5,7 +5,8 @@ import { Thread } from '../../model/mails';
 import { CurrentTab } from '../../model/ui';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setThreads } from '../../store/slices/inboxSlice';
-import IconButton from '../UI/IconButton';
+
+import { ThreadListItem } from './ThreadListItem';
 
 function ThreadList() {
   const dispatch = useAppDispatch();
@@ -20,31 +21,24 @@ function ThreadList() {
       case 'inbox':
         newThreads = getThreads(currentTab, 'user-1');
         break;
-
       case 'starred':
         currentTabThreads;
         break;
-
       case 'snoozed':
         currentTabThreads;
         break;
-
       case 'sent':
         currentTabThreads;
         break;
-
       case 'drafts':
         currentTabThreads;
         break;
-
       case 'important':
         currentTabThreads;
         break;
-
       case 'notes':
         currentTabThreads;
         break;
-
       default:
         break;
     }
@@ -57,17 +51,12 @@ function ThreadList() {
   return (
     <ul>
       {threads.map((thread) => (
-        <li
-          onClick={() => {
+        <ThreadListItem
+          thread={thread}
+          onClickHandle={() => {
             router.push(`mail/${thread.id}`);
           }}
-        >
-          <div className="flex items-center border-b">
-            <IconButton icon="check_box_outline_blank" tooltip="Select" />
-            <IconButton icon="star_outline" tooltip="Star" />
-            <h3>{thread.title}</h3>
-          </div>
-        </li>
+        />
       ))}
     </ul>
   );
