@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { ProfileImage } from '../ProfileImage';
 
 function LoginListItem({ item, onClick }) {
   return (
@@ -9,9 +10,7 @@ function LoginListItem({ item, onClick }) {
       onClick={onClick}
     >
       <div className="flex items-center p-3 shadow-sm">
-        <div className="inline-flex overflow-hidden rounded-full">
-          <Image width={50} height={50} src={item.image} objectFit="cover" />
-        </div>
+        <ProfileImage imageSrc={item.image} />
         <div className="ml-4 ">
           <h6 className="font-bold">{item.username}</h6>
           <p className="">{item.email}</p>
