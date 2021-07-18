@@ -6,12 +6,16 @@ import TextInput from '../UI/TextInput';
 import Button from '../UI/Button';
 import IconButton from '../UI/IconButton';
 import { ComposeButtonModal } from './ComposeButtonModal';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { sendEmail } from '../../store/slices/dbSlice';
 
 function MailNavigation() {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const dispatch = useAppDispatch();
 
-  const sendClickSendHandle = () => {
+  const sendClickSendHandle = (form) => {
     setIsOpenModal(false);
+    dispatch(sendEmail(form));
   };
 
   return (
