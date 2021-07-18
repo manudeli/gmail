@@ -7,6 +7,7 @@ interface IconButtonProps {
   tooltip?;
   tooltipPlacement?: 'top' | 'bottom' | 'left' | 'right';
   onClick?;
+  color?: 'white' | 'black';
 }
 
 function IconButton({
@@ -14,6 +15,7 @@ function IconButton({
   tooltip,
   tooltipPlacement = 'bottom',
   onClick,
+  color = 'black',
 }: IconButtonProps) {
   const clickButtonStopPropagation = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -27,10 +29,11 @@ function IconButton({
       bg="#000000a4"
     >
       <button
-        className="relative flex justify-center
-    items-center w-10 h-10 rounded-full
-    hover:bg-black hover:bg-opacity-5
-    transition-all m-1 cursor-pointer hover:>span"
+        className={`relative flex justify-center
+        items-center w-10 h-10 rounded-full
+        hover:bg-black hover:bg-opacity-5
+        transition-all m-1 cursor-pointer hover:>span
+        `}
         onClick={(e) => {
           if (onClick) onClick();
           clickButtonStopPropagation(e);
@@ -38,7 +41,12 @@ function IconButton({
       >
         <span
           className={`material-icons
-        text-black text-opacity-60
+          ${
+            color === 'white'
+              ? 'text-white text-opacity-60'
+              : 'text-black text-opacity-60'
+          }
+        
       `}
         >
           {icon}
