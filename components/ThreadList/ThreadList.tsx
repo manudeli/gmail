@@ -17,32 +17,7 @@ function ThreadList() {
 
   useEffect(() => {
     let newThreads = [];
-    switch (currentTab) {
-      case 'inbox':
-        newThreads = getThreads(currentTab, 'user-1');
-        break;
-      case 'starred':
-        currentTabThreads;
-        break;
-      case 'snoozed':
-        currentTabThreads;
-        break;
-      case 'sent':
-        currentTabThreads;
-        break;
-      case 'drafts':
-        currentTabThreads;
-        break;
-      case 'important':
-        currentTabThreads;
-        break;
-      case 'notes':
-        currentTabThreads;
-        break;
-      default:
-        break;
-    }
-
+    newThreads = getThreads(currentTab, 'user-1');
     dispatch(setThreads(newThreads));
   }, [currentTab]);
 

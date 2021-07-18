@@ -9,30 +9,67 @@ const users = {
     email: 'flowithusdev@gmail.com',
     threads: ['thread-1', 'thread-2'],
     image: '/assets/profiles/profile0.jpg',
+    starThreads: { 'thread-1': { isStar: true } },
+    starMails: { 'mail-1': { isStar: true }, 'mail-2': { isStar: true } },
+    importantThreads: {
+      'thread-1': { isImportant: true },
+      'thread-2': { isImportant: true },
+    },
+    snoozedThreads: {},
+    deletedThreads: {
+      'thread-1': [
+        { isPerfectDelete: false },
+        { 'mail-1': { isPerfectDelete: false } },
+      ],
+    },
   },
   'user-2': {
     username: 'Martin L. Olson',
     email: 'martin@email.com',
     threads: ['thread-1', 'thread-2'],
     image: '/assets/profiles/profile1.jpg',
+    starThreads: { 'thread-1': { isStar: true }, 'thread-2': { isStar: true } },
+    starMails: { 'mail-1': { isStar: true }, 'mail-2': { isStar: true } },
+    importantThreads: {
+      'thread-1': { isImportant: true },
+      'thread-2': { isImportant: true },
+    },
   },
   'user-3': {
     username: 'Nadine T. Campos',
     email: 'nadine@email.com',
     threads: ['thread-1', 'thread-2'],
     image: '/assets/profiles/profile2.jpg',
+    starThreads: { 'thread-1': { isStar: true }, 'thread-2': { isStar: true } },
+    starMails: { 'mail-1': { isStar: true }, 'mail-2': { isStar: true } },
+    importantThreads: {
+      'thread-1': { isImportant: true },
+      'thread-2': { isImportant: true },
+    },
   },
   'user-4': {
     username: 'Casey O. Robbins',
     email: 'casey@email.com',
     threads: ['thread-1', 'thread-2'],
     image: '/assets/profiles/profile3.jpg',
+    starThreads: { 'thread-1': { isStar: true }, 'thread-2': { isStar: true } },
+    starMails: { 'mail-1': { isStar: true }, 'mail-2': { isStar: true } },
+    importantThreads: {
+      'thread-1': { isImportant: true },
+      'thread-2': { isImportant: true },
+    },
   },
   'user-5': {
     username: 'Carla J. Naquin',
     email: 'carla@email.com',
     threads: ['thread-1', 'thread-2'],
     image: '/assets/profiles/profile4.jpg',
+    starThreads: { 'thread-1': { isStar: true }, 'thread-2': { isStar: true } },
+    starMails: { 'mail-1': { isStar: true }, 'mail-2': { isStar: true } },
+    importantThreads: {
+      'thread-1': { isImportant: true },
+      'thread-2': { isImportant: true },
+    },
   },
 };
 
@@ -110,7 +147,7 @@ const threads = {
   },
   'thread-2': {
     title: '[Google] I should hire you',
-    mails: ['mail-1', 'mail-3'],
+    mails: ['mail-1'],
   },
   'thread-3': {
     title: 'thread-title3',
@@ -119,9 +156,40 @@ const threads = {
 };
 
 export function getThreads(currentTab: CurrentTab, uid: Uid) {
-  const allThreadIds = users[uid].threads;
+  let currentUser = users[uid];
+  let threadIds = currentUser.threads;
 
-  return allThreadIds.map((threadId) => ({
+  switch (currentTab) {
+    case 'inbox':
+      threadIds = threadIds.filter(
+        (threadId) => !currentUser.deletedThreads[threadId]
+      );
+      break;
+    case 'starred':
+      threadIds = threadIds.filter(
+        (threadId) => currentUser.starThreads[threadId]
+      );
+      break;
+    case 'snoozed':
+      break;
+    case 'sent':
+      break;
+    case 'drafts':
+      break;
+    case 'important':
+      break;
+    case 'notes':
+      break;
+    case 'trash':
+      threadIds = threadIds.filter(
+        (threadId) => currentUser.deletedThreads[threadId]
+      );
+      break;
+    default:
+      break;
+  }
+
+  return threadIds.map((threadId) => ({
     id: threadId,
     ...threads[threadId],
   }));

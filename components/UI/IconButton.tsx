@@ -1,3 +1,5 @@
+import { MouseEvent } from 'react';
+
 import Tooltip from './Tooltip';
 
 interface IconButtonProps {
@@ -13,6 +15,10 @@ function IconButton({
   tooltipPlacement = 'bottom',
   onClick,
 }: IconButtonProps) {
+  const clickButtonStopPropagation = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+  };
+
   return (
     <Tooltip
       text={tooltip}
@@ -20,12 +26,15 @@ function IconButton({
       textColor="white"
       bg="#000000a4"
     >
-      <div
+      <button
         className="relative flex justify-center
     items-center w-10 h-10 rounded-full
     hover:bg-black hover:bg-opacity-5
     transition-all m-1 cursor-pointer hover:>span"
-        onClick={onClick}
+        onClick={(e) => {
+          if (onClick) onClick();
+          clickButtonStopPropagation(e);
+        }}
       >
         <span
           className={`material-icons
@@ -34,7 +43,7 @@ function IconButton({
         >
           {icon}
         </span>
-      </div>
+      </button>
     </Tooltip>
   );
 }

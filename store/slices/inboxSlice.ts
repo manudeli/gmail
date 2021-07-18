@@ -4,7 +4,6 @@ import type { RootState } from '../index';
 
 const initialState: ThreadBox = {
   threads: [],
-  sentThreads: [],
   checkedThreads: {},
 };
 
@@ -18,10 +17,23 @@ export const inboxSlice = createSlice({
     setThreads: (state, { payload }: PayloadAction<Thread[]>) => {
       state.threads = payload;
     },
+    clearCheckThreads: (state) => {
+      state.checkedThreads = initialState.checkedThreads;
+    },
+    setCheckThread: (state, { payload }) => {
+      console.log('hi');
+      const { threadId } = payload;
+
+      if (!state.checkedThreads[threadId]) {
+        state.checkedThreads[threadId] = { isChecked: false };
+      } else {
+        delete state.checkedThreads[threadId];
+      }
+    },
   },
 });
 
-export const { clearInbox, setThreads } = inboxSlice.actions;
+export const { clearInbox, setThreads, setCheckThread } = inboxSlice.actions;
 
 export const selectInbox = (state: RootState) => state.inbox;
 

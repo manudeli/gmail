@@ -5,7 +5,8 @@ export type CurrentTab =
   | 'sent'
   | 'drafts'
   | 'important'
-  | 'notes';
+  | 'notes'
+  | 'trash';
 
 export interface UIState {
   currentTab: CurrentTab;

@@ -20,6 +20,5 @@ export interface Thread {
 
 export interface ThreadBox {
   threads: Thread[];
-  sentThreads: Thread[];
-  checkedThreads: { [mailId: string]: boolean };
+  checkedThreads: { [mailId: string]: { isChecked: boolean } };
 }

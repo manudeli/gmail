@@ -4,6 +4,7 @@ import { Mail } from '../../model/mails';
 import { ProfileImage } from '../ProfileImage';
 import dayjs from 'dayjs';
 import IconButton from '../UI/IconButton';
+import { Uid } from '../../model/users';
 
 interface Props {
   mail: Mail;
@@ -13,7 +14,8 @@ export const MailCompose = ({ mail }: Props) => {
   const { id, content, createdAt, from, threadId, to } = mail;
 
   const fromUser = getUser(from);
-  const toUsers = getUsers(Object.keys(to));
+  const toUserIds = [...(Object.keys(to) as Uid[])];
+  const toUsers = getUsers(toUserIds);
   const date = new Date(createdAt);
 
   return (

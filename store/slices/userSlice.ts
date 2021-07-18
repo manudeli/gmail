@@ -4,10 +4,17 @@ import type { RootState } from '../index';
 
 const initialState: User = {
   userProfiles: [],
-  userProfile: { id: '', username: '', email: '', image: '' },
+  userProfile: {
+    id: '',
+    username: '',
+    email: '',
+    image: '',
+    starThreads: {},
+    starMails: {},
+  },
   starThreads: {},
   starMails: {},
-  importantMails: {},
+  importantThreads: {},
   snoozedThreads: {},
   deletedThreads: {},
 };
@@ -21,7 +28,7 @@ export const userSlice = createSlice({
       state.userProfile = initialState.userProfile;
       state.starThreads = initialState.starThreads;
       state.starMails = initialState.starMails;
-      state.importantMails = initialState.importantMails;
+      state.importantThreads = initialState.importantThreads;
       state.snoozedThreads = initialState.snoozedThreads;
       state.deletedThreads = initialState.deletedThreads;
     },
@@ -34,11 +41,25 @@ export const userSlice = createSlice({
     setLogin: (state, { payload }) => {
       state.userProfile = payload;
     },
+    setStarThread: (state, { payload }) => {
+      const { threadId } = payload;
+
+      if (!state.userProfile.starThreads[threadId]) {
+        state.userProfile.starThreads[threadId] = { isStar: true };
+      } else {
+        delete state.userProfile.starThreads[threadId];
+      }
+    },
   },
 });
 
-export const { logout, setUserProfile, setUserProfiles, setLogin } =
-  userSlice.actions;
+export const {
+  logout,
+  setUserProfile,
+  setUserProfiles,
+  setLogin,
+  setStarThread,
+} = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;
 
