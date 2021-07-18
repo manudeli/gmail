@@ -1,15 +1,18 @@
 import Head from 'next/head';
+import router from 'next/router';
 import { useEffect } from 'react';
 import GoogleLogo from '../components/GoogleLogo';
 import LoginList from '../components/LoginList/LoginList';
+import Loading from '../components/UI/Loading';
 
 import { mails, threads, users } from '../lib/api';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { setAllDB } from '../store/slices/dbSlice';
-import { setUserProfiles } from '../store/slices/userSlice';
+import { logout, setUserProfiles } from '../store/slices/userSlice';
 
 export default function HomePage() {
   const disptach = useAppDispatch();
+  const uid = useAppSelector((state) => state.user.userProfile.id);
   const allUsers = useAppSelector((state) => state.db.users);
 
   useEffect(() => {
@@ -20,6 +23,11 @@ export default function HomePage() {
       )
     );
   }, [allUsers]);
+
+  if (uid) {
+    router.replace('/mail');
+    return <Loading />;
+  }
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
