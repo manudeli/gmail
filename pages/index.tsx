@@ -19,7 +19,7 @@ export default function HomePage() {
         Object.keys(allUsers).map((key) => ({ id: key, ...users[key] }))
       )
     );
-  }, []);
+  }, [allUsers]);
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">

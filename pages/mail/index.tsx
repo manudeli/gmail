@@ -30,12 +30,57 @@ export default function MailPage() {
     }
   }, [router.asPath]);
 
+  const currentUser = useAppSelector((state) => state.user.userProfile);
+
+  if (!currentUser.id) router.replace('/');
+
+  const myThreadIds = useAppSelector((state) => {
+    return state.db.users[currentUser.id]
+      ? state.db.users[currentUser.id].threads
+      : [];
+  });
+
+  let threads = useAppSelector((state) => {
+    let threadTab = [];
+    let threads = myThreadIds.map((myThreadId) => ({
+      id: myThreadId,
+      ...state.db.threads[myThreadId],
+    }));
+
+    switch (currentTab) {
+      case 'inbox':
+        threadTab = threads;
+        break;
+      case 'starred':
+        threadTab = threads.filter(
+          (thread) => currentUser.starThreads[thread.id] && true
+        );
+        break;
+      case 'snoozed':
+        break;
+      case 'sent':
+        break;
+      case 'drafts':
+        break;
+      case 'important':
+        break;
+      case 'notes':
+        break;
+      case 'trash':
+        break;
+      default:
+        break;
+    }
+
+    return threadTab;
+  });
+
   return (
     <>
       <Head>
         <title>Gmail - {capitalizeFirstLetter(currentTab)}</title>
       </Head>
-      <ThreadList />
+      <ThreadList threads={threads} />
     </>
   );
 }
