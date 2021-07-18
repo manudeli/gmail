@@ -36,25 +36,16 @@ function ThreadCompose() {
       <ul className="mr-4">
         {mails.map((mail, index) => (
           <>
-            <MailCompose key={index} mail={mail} />
+            <MailCompose
+              key={index}
+              mail={mail}
+              isLastMail={mails.length - 1 === index}
+            />
+
             {mails.length - 1 !== index && <div className="border-t" />}
           </>
         ))}
       </ul>
-      <div className="flex items-center gap-2 pl-16 py-2">
-        <Button
-          variant="outlined"
-          materialIcon="reply"
-          onClick={() => {
-            console.log('reply');
-          }}
-        >
-          Reply
-        </Button>
-        <Button variant="outlined" materialIcon="forward">
-          Forward
-        </Button>
-      </div>
     </div>
   );
 }
