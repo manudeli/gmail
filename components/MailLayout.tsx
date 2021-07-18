@@ -10,7 +10,7 @@ function MailLayout({ children }) {
   const isloggedIn = useAppSelector((state) => state.user.userProfile.id);
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-screen">
       {isloggedIn && <TopNavigation />}
       <div className="flex flex-1">
         {isloggedIn && <MailNavigation />}
@@ -33,7 +33,7 @@ function MailLayout({ children }) {
               </div>
             </div>
           )}
-          {children}
+          <div className="mail-list overflow-y-auto">{children}</div>
         </div>
       </div>
     </div>

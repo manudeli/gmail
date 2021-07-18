@@ -2,6 +2,10 @@ html {
   color: #1a1a1a;
 }
 
+.mail-list {
+  height: calc(100vh - 49px - 67px);
+}
+
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
