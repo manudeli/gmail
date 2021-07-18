@@ -1,10 +1,16 @@
 import router from 'next/router';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setLogin } from '../../store/slices/userSlice';
+import { ProfileImage } from '../ProfileImage';
 import LoginListItem from './LoginListItem';
 
-function LoginList() {
+interface LoginListProps {
+  hideLoggedInUser?: boolean;
+}
+
+function LoginList({ hideLoggedInUser = false }: LoginListProps) {
   const userProfiles = useAppSelector((state) => state.user.userProfiles);
+  const loggedInUserProfile = useAppSelector((state) => state.user.userProfile);
   const dispatch = useAppDispatch();
 
   const clickUserProfile = (userProfile) => {
@@ -13,13 +19,21 @@ function LoginList() {
   };
 
   return (
-    <ul className="w-96">
-      {userProfiles.map((userProfile) => (
-        <LoginListItem
-          item={userProfile}
-          onClick={() => clickUserProfile(userProfile)}
-        />
-      ))}
+    <ul className="w-80 flex flex-col items-center">
+      <div className="w-full">
+        {userProfiles
+          .filter((userProfile) => {
+            if (hideLoggedInUser)
+              return userProfile.id !== loggedInUserProfile.id;
+            return true;
+          })
+          .map((userProfile) => (
+            <LoginListItem
+              item={userProfile}
+              onClick={() => clickUserProfile(userProfile)}
+            />
+          ))}
+      </div>
     </ul>
   );
 }

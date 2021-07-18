@@ -17,7 +17,13 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      state = initialState;
+      state.userProfiles = initialState.userProfiles;
+      state.userProfile = initialState.userProfile;
+      state.starThreads = initialState.starThreads;
+      state.starMails = initialState.starMails;
+      state.importantMails = initialState.importantMails;
+      state.snoozedThreads = initialState.snoozedThreads;
+      state.deletedThreads = initialState.deletedThreads;
     },
     setUserProfiles: (state, { payload }) => {
       state.userProfiles = payload;

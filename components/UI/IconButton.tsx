@@ -1,15 +1,17 @@
 import Tooltip from './Tooltip';
 
 interface IconButtonProps {
-  icon: string;
+  icon: any;
   tooltip?;
   tooltipPlacement?: 'top' | 'bottom' | 'left' | 'right';
+  onClick?;
 }
 
 function IconButton({
   icon,
   tooltip,
   tooltipPlacement = 'bottom',
+  onClick,
 }: IconButtonProps) {
   return (
     <Tooltip
@@ -23,6 +25,7 @@ function IconButton({
     items-center w-10 h-10 rounded-full
     hover:bg-black hover:bg-opacity-5
     transition-all m-1 cursor-pointer hover:>span"
+        onClick={onClick}
       >
         <span
           className={`material-icons

@@ -10,7 +10,6 @@ function ThreadCompose() {
 
   const threadId = router.query.threadId as ThreadId;
   const thread = getThread(threadId) as Thread;
-
   const mails = getMails(threadId) as Mail[];
 
   return (
