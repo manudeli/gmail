@@ -101,13 +101,19 @@ export const threads = {
   'thread-1': {
     title: '[TouchFlow] Hello, Jonghyeon',
     mails: ['mail-0', 'mail-1'],
+    lastSender: 'user-1',
+    lastSendTime: 1626517113349,
   },
   'thread-2': {
     title: '[Google] I should hire you',
     mails: ['mail-1', 'mail-2'],
+    lastSender: 'user-2',
+    lastSendTime: 1626517113349,
   },
   'thread-3': {
     title: 'thread-title3',
     mails: ['mail-2'],
+    lastSender: 'user-3',
+    lastSendTime: 1626517113349,
   },
 };
