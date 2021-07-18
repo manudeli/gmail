@@ -1,25 +1,27 @@
 import React from 'react';
-import { getUser, getUsers } from '../../lib/api';
 import { Mail } from '../../model/mails';
 import { ProfileImage } from '../ProfileImage';
 import dayjs from 'dayjs';
 import IconButton from '../UI/IconButton';
 import { Uid } from '../../model/users';
+import { useAppSelector } from '../../store/hooks';
 
 interface Props {
   mail: Mail;
 }
 
 export const MailCompose = ({ mail }: Props) => {
-  const { id, content, createdAt, from, threadId, to } = mail;
+  const users = useAppSelector((state) => state.db.users);
+  const { content, createdAt, from, to } = mail;
 
-  const fromUser = getUser(from);
+  const fromUser = users[from];
   const toUserIds = [...(Object.keys(to) as Uid[])];
-  const toUsers = getUsers(toUserIds);
+
+  const toUsers = toUserIds.map((userId) => ({ id: userId, ...users[userId] }));
   const date = new Date(createdAt);
 
   return (
-    <li className="border-b pt-4">
+    <li className="pt-4">
       <div className="flex pb-5">
         <div className="px-4">
           <ProfileImage imageSrc={fromUser.image} />
@@ -30,7 +32,13 @@ export const MailCompose = ({ mail }: Props) => {
               <span className="font-bold text-sm">{fromUser.username}</span>{' '}
               <span className="text-xs text-gray-600">{`<${fromUser.email}>`}</span>
               <div className="text-xs text-gray-600">
-                to {toUsers.map((user) => user.username).join(', ')}
+                to{' '}
+                {toUsers.map((user, index) => (
+                  <span>
+                    {user.username}
+                    {index === toUsers.length - 1 ? '' : ', '}
+                  </span>
+                ))}
               </div>
             </div>
             <div className="flex items-center text-xs text-gray-600">

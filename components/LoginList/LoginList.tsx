@@ -1,7 +1,6 @@
 import router from 'next/router';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setLogin } from '../../store/slices/userSlice';
-import { ProfileImage } from '../ProfileImage';
 import LoginListItem from './LoginListItem';
 
 interface LoginListProps {
@@ -29,6 +28,7 @@ function LoginList({ hideLoggedInUser = false }: LoginListProps) {
           })
           .map((userProfile) => (
             <LoginListItem
+              key={userProfile.id}
               item={userProfile}
               onClick={() => clickUserProfile(userProfile)}
             />

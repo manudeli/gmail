@@ -3,16 +3,22 @@ import { useEffect } from 'react';
 import GoogleLogo from '../components/GoogleLogo';
 import LoginList from '../components/LoginList/LoginList';
 
-import { getAllUsers } from '../lib/api';
-import { useAppDispatch } from '../store/hooks';
+import { mails, threads, users } from '../lib/api';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { setAllDB } from '../store/slices/dbSlice';
 import { setUserProfiles } from '../store/slices/userSlice';
 
 export default function HomePage() {
   const disptach = useAppDispatch();
+  const allUsers = useAppSelector((state) => state.db.users);
 
   useEffect(() => {
-    const allUsers = getAllUsers();
-    disptach(setUserProfiles(allUsers));
+    disptach(setAllDB({ users, mails, threads }));
+    disptach(
+      setUserProfiles(
+        Object.keys(allUsers).map((key) => ({ id: key, ...users[key] }))
+      )
+    );
   }, []);
 
   return (

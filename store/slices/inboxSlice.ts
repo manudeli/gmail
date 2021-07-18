@@ -21,7 +21,6 @@ export const inboxSlice = createSlice({
       state.checkedThreads = initialState.checkedThreads;
     },
     setCheckThread: (state, { payload }) => {
-      console.log('hi');
       const { threadId } = payload;
 
       if (!state.checkedThreads[threadId]) {

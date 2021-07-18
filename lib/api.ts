@@ -2,8 +2,8 @@ import { Uid } from './../model/users';
 import { CurrentTab } from './../model/ui';
 import { ThreadId, MailId, Thread } from '../model/mails';
 
-// Users
-const users = {
+// Initial Data
+export const users = {
   'user-1': {
     username: 'Jonghyeon Ko',
     email: 'flowithusdev@gmail.com',
@@ -73,28 +73,7 @@ const users = {
   },
 };
 
-export function getAllUsers() {
-  return Object.keys(users).map((key) => ({ id: key, ...users[key] }));
-}
-
-export function getUsers(userIds: Uid[]) {
-  let newUsers = [];
-
-  newUsers = userIds.map((userId) => {
-    const newUser = { id: userId, ...users[userId] };
-    return newUser;
-  });
-
-  return newUsers;
-}
-
-export function getUser(userId: Uid) {
-  const user = { id: userId, ...users[userId] };
-  return user;
-}
-
-// Mails
-const mails = {
+export const mails = {
   'mail-0': {
     from: 'user-1',
     to: { 'user-2': true, 'user-1': true },
@@ -106,7 +85,7 @@ const mails = {
     from: 'user-2',
     to: { 'user-1': true },
     createdAt: 1606517113349,
-    content: `Dear Rick, Dear Jason, Lorem Ipsum essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more  Lorem Ip`,
+    content: `Dear Rick, Lorem Ipsum essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more  Lorem Ip`,
     threadId: 'thread-1',
   },
   'mail-2': {
@@ -118,85 +97,17 @@ const mails = {
   },
 };
 
-function getMailIds(threadId: ThreadId) {
-  let mailIds = [];
-  if (threads[threadId]) {
-    return (mailIds = threads[threadId].mails);
-  }
-  return mailIds;
-}
-
-export function getMails(threadId: ThreadId) {
-  let newMails = [];
-  let mailIds = getMailIds(threadId);
-
-  if (mailIds.length > 0) {
-    newMails = mailIds.map((mailId) => {
-      const newMail = { id: mailId, ...mails[mailId] };
-      return newMail;
-    });
-  }
-  return newMails;
-}
-
-//Threads
-const threads = {
+export const threads = {
   'thread-1': {
     title: '[TouchFlow] Hello, Jonghyeon',
     mails: ['mail-0', 'mail-1'],
   },
   'thread-2': {
     title: '[Google] I should hire you',
-    mails: ['mail-1'],
+    mails: ['mail-1', 'mail-2'],
   },
   'thread-3': {
     title: 'thread-title3',
     mails: ['mail-2'],
   },
 };
-
-export function getThreads(currentTab: CurrentTab, uid: Uid) {
-  let currentUser = users[uid];
-  let threadIds = currentUser.threads;
-
-  switch (currentTab) {
-    case 'inbox':
-      threadIds = threadIds.filter(
-        (threadId) => !currentUser.deletedThreads[threadId]
-      );
-      break;
-    case 'starred':
-      threadIds = threadIds.filter(
-        (threadId) => currentUser.starThreads[threadId]
-      );
-      break;
-    case 'snoozed':
-      break;
-    case 'sent':
-      break;
-    case 'drafts':
-      break;
-    case 'important':
-      break;
-    case 'notes':
-      break;
-    case 'trash':
-      threadIds = threadIds.filter(
-        (threadId) => currentUser.deletedThreads[threadId]
-      );
-      break;
-    default:
-      break;
-  }
-
-  return threadIds.map((threadId) => ({
-    id: threadId,
-    ...threads[threadId],
-  }));
-}
-
-export function getThread(threadId: ThreadId) {
-  let newThread = {};
-  newThread = { id: threadId, ...threads[threadId] } as Thread;
-  return newThread;
-}

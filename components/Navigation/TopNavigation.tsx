@@ -58,19 +58,6 @@ function TopNavigation() {
       <IconButton icon="help_outline" tooltip="Support" />
       <IconButton icon="settings" tooltip="Settings" />
       <IconButton icon="apps" tooltip="Google apps" />
-      <IconButton
-        icon="account_circle"
-        tooltip={
-          <div className="text-left">
-            <strong>Google Account</strong>
-            <p className="opacity-80">
-              {userProfile.username}
-              <br />
-              {userProfile.email}
-            </p>
-          </div>
-        }
-      />
       <div ref={profileRef}>
         <IconButton
           onClick={() => setOpenProfile((prev) => !prev)}

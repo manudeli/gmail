@@ -1,4 +1,4 @@
-import { userReducer, inboxReducer, uiReducer } from './slices';
+import { userReducer, inboxReducer, uiReducer, dbReducer } from './slices';
 import {
   combineReducers,
   configureStore,
@@ -15,6 +15,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   inbox: inboxReducer,
   ui: uiReducer,
+  db: dbReducer,
 });
 
 const persistConfig = {
