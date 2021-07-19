@@ -144,7 +144,13 @@ export const MailCompose = ({ mail, isLastMail }: Props) => {
                 <Button color="primary" onClick={handleClickReply}>
                   Send
                 </Button>
-                <IconButton icon="delete" />
+                <IconButton
+                  icon="delete"
+                  onClick={() => {
+                    setForm(initialForm);
+                    setIsOpenModal(false);
+                  }}
+                />
               </div>
             </div>
           </div>
