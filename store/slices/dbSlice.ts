@@ -81,7 +81,9 @@ export const userSlice = createSlice({
 
       // Thread 업데이트
       state.threads[threadId].mails.push(mailId);
-      state.threads[threadId].senders.push(from);
+      if (!state.threads[threadId].senders.includes(from)) {
+        state.threads[threadId].senders.push(from);
+      }
       state.threads[threadId].lastSendTime = createdAt;
 
       // Mails에 추가
@@ -92,8 +94,6 @@ export const userSlice = createSlice({
         createdAt,
         threadId,
       };
-
-      // Users에
     },
   },
 });
