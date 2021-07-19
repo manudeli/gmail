@@ -42,10 +42,12 @@ export default function MailPage() {
 
   let threads = useAppSelector((state) => {
     let threadsInTab = [];
-    let threads = myThreadIds.map((myThreadId) => ({
-      id: myThreadId,
-      ...state.db.threads[myThreadId],
-    }));
+    let threads = myThreadIds
+      .map((myThreadId) => ({
+        id: myThreadId,
+        ...state.db.threads[myThreadId],
+      }))
+      .sort((a, b) => b.lastSendTime - a.lastSendTime);
 
     switch (currentTab) {
       case 'inbox':
