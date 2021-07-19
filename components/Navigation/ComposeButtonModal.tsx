@@ -15,8 +15,10 @@ export const ComposeButtonModal = ({
 }: Props) => {
   const currentUserId = useAppSelector((state) => state.user.userProfile.id);
 
+  const [emailInput, setEmailInput] = useState('');
+
   const [form, setForm] = useState({
-    toEmails: [''],
+    toEmails: [],
     title: '',
     from: currentUserId,
     content: '',
@@ -34,12 +36,40 @@ export const ComposeButtonModal = ({
       const newForm = { ...prev };
       if (type === 'toEmails') {
         newForm[type][index] = e.target.value;
-        newForm[type][index + 1] = '';
       } else {
         newForm[type] = e.target.value;
       }
       return newForm;
     });
+  };
+
+  const handleRecipients = () => {
+    const email = emailInput.trim();
+    const index = form.toEmails.findIndex((el) => el === emailInput);
+
+    if (index === -1 && email !== '') {
+      const cp = [...form.toEmails];
+      cp.push(email);
+      setForm((prev) => {
+        prev.toEmails = cp;
+        return prev;
+      });
+    }
+    setEmailInput('');
+  };
+
+  const handleKeyPress = (e) => {
+    const { code } = e;
+
+    if (code === 'Space') {
+      handleRecipients();
+    }
+  };
+
+  const handleDeleteToEmail = (index: number) => {
+    const newForm = { ...form };
+    newForm.toEmails.splice(index, 1);
+    setForm(newForm);
   };
 
   return (
@@ -50,21 +80,35 @@ export const ComposeButtonModal = ({
       </div>
 
       <div className="flex flex-col p-2 text-sm">
-        <div className="border-b flex  p-2">
-          <span>To</span>
-
+        <div className="border-b flex items-center p-2">
+          <span className="mr-1">To</span>
           {form.toEmails.map((toEmail, index) => {
             return (
-              <input
-                value={toEmail}
-                onChange={(e) => handleChangeForm(e, 'toEmails', index)}
-                className="outline-none flex-1 ml-2"
-                placeholder="Recipients"
-              />
+              <span
+                className="flex items-center rounded-full px-2 ml-1 text-gray-700 font-semibold"
+                style={{ boxShadow: 'inset 0 0 1px rgba(0,0,0,0.8)' }}
+              >
+                {toEmail}{' '}
+                <i
+                  className="material-icons -mr-1"
+                  style={{ fontSize: 16 }}
+                  onClick={() => handleDeleteToEmail(index)}
+                >
+                  close
+                </i>
+              </span>
             );
           })}
+          <input
+            value={emailInput}
+            onChange={(e) => setEmailInput(e.target.value)}
+            onKeyPress={(e) => handleKeyPress(e)}
+            onBlur={() => handleRecipients()}
+            className="outline-none flex-1 ml-2"
+            placeholder={form.toEmails.length ? '' : 'Recipients'}
+          />
         </div>
-        <div className="border-b  p-2">
+        <div className="flex border-b  p-2">
           <input
             value={form.title}
             onChange={(e) => handleChangeForm(e, 'title')}

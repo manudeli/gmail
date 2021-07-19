@@ -16,6 +16,7 @@ function MailNavigation() {
   const sendClickSendHandle = (form) => {
     setIsOpenModal(false);
     dispatch(sendEmail(form));
+    alert('성공적으로 메일을 보냈습니다.');
   };
 
   return (

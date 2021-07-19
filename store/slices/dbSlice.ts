@@ -52,6 +52,7 @@ export const userSlice = createSlice({
             mails: [mailId],
             senders: [from],
             lastSendTime: createdAt,
+            creator: from,
           };
           // MailsDB에 새 Mail 생성
           state.mails[mailId] = {

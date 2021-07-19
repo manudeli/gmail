@@ -53,7 +53,10 @@ export default function MailPage() {
       case 'inbox':
         threadsInTab = threads.filter((thread) => {
           if (thread.senders.length === 1) {
-            return thread.senders[0] !== currentUser.id;
+            return (
+              thread.senders[0] !== currentUser.id ||
+              thread.creator === currentUser.id
+            );
           } else {
             return true;
           }

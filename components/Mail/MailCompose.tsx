@@ -45,7 +45,6 @@ export const MailCompose = ({ mail, isLastMail }: Props) => {
       const newForm = { ...prev };
       if (type === 'toEmails') {
         newForm[type][index] = e.target.value;
-        newForm[type][index + 1] = '';
       } else {
         newForm[type] = e.target.value;
       }
