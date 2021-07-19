@@ -41,7 +41,7 @@ export default function MailPage() {
   });
 
   let threads = useAppSelector((state) => {
-    let threadTab = [];
+    let threadsInTab = [];
     let threads = myThreadIds.map((myThreadId) => ({
       id: myThreadId,
       ...state.db.threads[myThreadId],
@@ -49,16 +49,25 @@ export default function MailPage() {
 
     switch (currentTab) {
       case 'inbox':
-        threadTab = threads;
+        threadsInTab = threads.filter((thread) => {
+          if (thread.senders.length === 1) {
+            return thread.senders[0] !== currentUser.id;
+          } else {
+            return true;
+          }
+        });
         break;
       case 'starred':
-        threadTab = threads.filter(
+        threadsInTab = threads.filter(
           (thread) => currentUser.starThreads[thread.id] && true
         );
         break;
       case 'snoozed':
         break;
       case 'sent':
+        threadsInTab = threads.filter((thread) =>
+          thread.senders.includes(currentUser.id)
+        );
         break;
       case 'drafts':
         break;
@@ -72,7 +81,7 @@ export default function MailPage() {
         break;
     }
 
-    return threadTab;
+    return threadsInTab;
   });
 
   return (
