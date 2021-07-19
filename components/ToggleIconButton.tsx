@@ -2,7 +2,7 @@ import React from 'react';
 import IconButton from './UI/IconButton';
 
 interface Props {
-  icon: 'star' | 'check_box';
+  icon: 'star' | 'check_box' | 'label_important';
   tooltip: string;
   isChecked?: boolean;
   onClick?;
@@ -32,6 +32,17 @@ export const ToggleIconButton = ({
           icon={`${icon}${isChecked ? '' : '_outline_blank'}`}
           tooltip={tooltip}
           onClick={onClick}
+        />
+      );
+
+    case 'label_important':
+      return (
+        <IconButton
+          icon={`${icon}${isChecked ? '' : '_outline'}`}
+          tooltip={tooltip}
+          onClick={onClick}
+          color="yellow"
+          isChecked={isChecked}
         />
       );
   }

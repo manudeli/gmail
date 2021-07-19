@@ -50,7 +50,7 @@ function IconButton({
               ? 'text-white text-opacity-60'
               : color === 'black'
               ? 'text-black text-opacity-60'
-              : ''
+              : 'text-black text-opacity-60'
           }
         
       `}

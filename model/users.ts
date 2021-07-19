@@ -9,6 +9,7 @@ export interface UserProfile {
   image: string;
   starThreads: { [threadId: string]: { isStar: boolean } };
   starMails: { [mailId: string]: { isStar: boolean } };
+  importantThreads: { [mailId: string]: { isImportant: boolean } };
 }
 
 export interface User {

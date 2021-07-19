@@ -19,10 +19,20 @@ export const userSlice = createSlice({
     },
     setStarThreadDB: (state, { payload }) => {
       const { userId, threadId } = payload;
-      state.users[userId].starThreads[threadId] = !state.users[userId]
-        .starThreads[threadId]
-        ? { isStar: true }
-        : { isStar: false };
+
+      if (!state.users[userId].starThreads[threadId]) {
+        state.users[userId].starThreads[threadId] = { isStar: true };
+      } else {
+        delete state.users[userId].starThreads[threadId];
+      }
+    },
+    setImportantThreadDB: (state, { payload }) => {
+      const { userId, threadId } = payload;
+      if (!state.users[userId].importantThreads[threadId]) {
+        state.users[userId].importantThreads[threadId] = { isImportant: true };
+      } else {
+        delete state.users[userId].importantThreads[threadId];
+      }
     },
     sendEmail: (state, { payload }) => {
       const { toEmails, title, from, content, threadId, mailId, createdAt } =
@@ -98,8 +108,13 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setAllDB, setStarThreadDB, sendEmail, sendReply } =
-  userSlice.actions;
+export const {
+  setAllDB,
+  setStarThreadDB,
+  setImportantThreadDB,
+  sendEmail,
+  sendReply,
+} = userSlice.actions;
 
 export const selectDB = (state: RootState) => state.db;
 

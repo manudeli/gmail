@@ -1,9 +1,15 @@
 import React from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setStarThreadDB } from '../../store/slices/dbSlice';
+import {
+  setImportantThreadDB,
+  setStarThreadDB,
+} from '../../store/slices/dbSlice';
 import { setCheckThread } from '../../store/slices/inboxSlice';
-import { setStarThread } from '../../store/slices/userSlice';
+import {
+  setImportantThread,
+  setStarThread,
+} from '../../store/slices/userSlice';
 import { ToggleIconButton } from '../ToggleIconButton';
 import dayjs from 'dayjs';
 
@@ -17,6 +23,9 @@ export const ThreadListItem = ({ thread, onClickHandle }: Props) => {
   const currentUserId = useAppSelector((state) => state.user.userProfile.id);
   const myStarThreads = useAppSelector(
     (state) => state.user.userProfile.starThreads
+  );
+  const myImportantThreads = useAppSelector(
+    (state) => state.user.userProfile.importantThreads
   );
   const CheckedThreads = useAppSelector((state) => state.inbox.checkedThreads);
   const senderNames = useAppSelector((state) =>
@@ -47,6 +56,21 @@ export const ThreadListItem = ({ thread, onClickHandle }: Props) => {
               setStarThreadDB({ userId: currentUserId, threadId: thread.id })
             );
             dispatch(setStarThread({ threadId: thread.id }));
+            // fetch Star After, if failed cancel setStarThread
+          }}
+        />
+        <ToggleIconButton
+          icon="label_important"
+          tooltip="Important"
+          isChecked={myImportantThreads[thread.id] && true}
+          onClick={() => {
+            dispatch(
+              setImportantThreadDB({
+                userId: currentUserId,
+                threadId: thread.id,
+              })
+            );
+            dispatch(setImportantThread({ threadId: thread.id }));
             // fetch Star After, if failed cancel setStarThread
           }}
         />

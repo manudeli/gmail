@@ -13,25 +13,14 @@ export default function MailNavigationList() {
       label: 'Starred',
       hash: 'starred',
     },
-    {
-      label: 'Snoozed',
-      hash: 'snoozed',
-    },
+
     {
       label: 'Sent',
       hash: 'sent',
     },
     {
-      label: 'Drafts',
-      hash: 'drafts',
-    },
-    {
       label: 'Important',
       hash: 'important',
-    },
-    {
-      label: 'Spam',
-      hash: 'spam',
     },
     {
       label: 'Trash',

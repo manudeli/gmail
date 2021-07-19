@@ -11,6 +11,7 @@ const initialState: User = {
     image: '',
     starThreads: {},
     starMails: {},
+    importantThreads: {},
   },
   starThreads: {},
   starMails: {},
@@ -50,6 +51,15 @@ export const userSlice = createSlice({
         delete state.userProfile.starThreads[threadId];
       }
     },
+    setImportantThread: (state, { payload }) => {
+      const { threadId } = payload;
+
+      if (!state.userProfile.importantThreads[threadId]) {
+        state.userProfile.importantThreads[threadId] = { isImportant: true };
+      } else {
+        delete state.userProfile.importantThreads[threadId];
+      }
+    },
   },
 });
 
@@ -59,6 +69,7 @@ export const {
   setUserProfiles,
   setLogin,
   setStarThread,
+  setImportantThread,
 } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;

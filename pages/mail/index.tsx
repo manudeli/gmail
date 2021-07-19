@@ -74,6 +74,9 @@ export default function MailPage() {
       case 'drafts':
         break;
       case 'important':
+        threadsInTab = threads.filter(
+          (thread) => currentUser.importantThreads[thread.id] && true
+        );
         break;
       case 'notes':
         break;
