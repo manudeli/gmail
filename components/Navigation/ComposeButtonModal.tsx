@@ -43,7 +43,7 @@ export const ComposeButtonModal = ({
   };
 
   return (
-    <div className="bg-white absolute bottom-4 right-4 z-10 shadow-md border rounded-md overflow-hidden">
+    <div className="bg-white absolute bottom-4 right-4 z-10 shadow-xl border rounded-xl overflow-hidden">
       <div className="flex items-center justify-between bg-black bg-opacity-80 text-white pl-4 text-sm">
         New Message
         <IconButton color="white" icon="clear" onClick={onClickXButton} />
@@ -76,8 +76,8 @@ export const ComposeButtonModal = ({
           value={form.content}
           onChange={(e) => handleChangeForm(e, 'content')}
           className="outline-none p-2"
-          cols={50}
-          rows={10}
+          cols={76}
+          rows={12}
         ></textarea>
       </div>
       <div className="flex items-center justify-between p-2 border-t">

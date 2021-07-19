@@ -25,10 +25,9 @@ function MailNavigation() {
           onClick={() => {
             setIsOpenModal(true);
           }}
-          className="flex items-center justify-center h-12 p-4 text-sm font-medium bg-white rounded-full shadow-md"
+          className="flex items-center justify-center gap-3 h-12 p-4 text-sm font-normal font-medium bg-white rounded-full shadow-md"
         >
-          <Image width={32} height={32} src="/assets/create.png" />
-          Compose
+          <Image width={32} height={32} src="/assets/create.png" /> Compose
         </button>
       </div>
       <MailNavigationList />

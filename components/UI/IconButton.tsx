@@ -7,7 +7,8 @@ interface IconButtonProps {
   tooltip?;
   tooltipPlacement?: 'top' | 'bottom' | 'left' | 'right';
   onClick?;
-  color?: 'white' | 'black';
+  color?: 'white' | 'black' | 'yellow';
+  isChecked?;
 }
 
 function IconButton({
@@ -16,6 +17,7 @@ function IconButton({
   tooltipPlacement = 'bottom',
   onClick,
   color = 'black',
+  isChecked,
 }: IconButtonProps) {
   const clickButtonStopPropagation = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -42,9 +44,13 @@ function IconButton({
         <span
           className={`material-icons
           ${
-            color === 'white'
+            color === 'yellow' && isChecked
+              ? 'text-yellow-400'
+              : color === 'white'
               ? 'text-white text-opacity-60'
-              : 'text-black text-opacity-60'
+              : color === 'black'
+              ? 'text-black text-opacity-60'
+              : ''
           }
         
       `}

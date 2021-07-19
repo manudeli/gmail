@@ -21,6 +21,8 @@ export const ToggleIconButton = ({
           icon={`${icon}${isChecked ? '' : '_outline'}`}
           tooltip={tooltip}
           onClick={onClick}
+          color="yellow"
+          isChecked={isChecked}
         />
       );
 
