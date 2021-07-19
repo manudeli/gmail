@@ -28,20 +28,22 @@ export const userSlice = createSlice({
       const { toEmails, title, from, content, threadId, mailId, createdAt } =
         payload;
 
+      // usersDB에서 검색
       Object.keys(state.users).map((userId) => {
         const objectUserIds = {};
 
+        // 보내는 Email이 있는지 검색
         const currentEmailIndex = toEmails.indexOf(state.users[userId].email);
         if (currentEmailIndex !== -1) {
           objectUserIds[userId] = true;
-          // DB에 새 Thread 생성
+          // ThreadsDB에 새 Thread 생성
           state.threads[threadId] = {
             title,
             mails: [mailId],
-            lastSender: from,
+            senders: [from],
             lastSendTime: createdAt,
           };
-          // DB에 새 Mail 생성
+          // MailsDB에 새 Mail 생성
           state.mails[mailId] = {
             from,
             content,
@@ -49,7 +51,18 @@ export const userSlice = createSlice({
             to: objectUserIds,
             threadId,
           };
+          // UsersDB 해당 유저 threads에 thread 생성
           state.users[userId].threads.push(threadId);
+
+          // UsersDB 해당 유저에 thread가 있는지 검색
+          const currentThreadIndex =
+            state.users[from].threads.includes(threadId);
+          console.log(currentThreadIndex);
+          if (!currentThreadIndex) {
+            // 없으면 생성
+            console.log("There's no Thread this");
+            state.users[from].threads.push(threadId);
+          }
         }
         return state.users[userId];
       });
@@ -68,7 +81,7 @@ export const userSlice = createSlice({
 
       // Thread 업데이트
       state.threads[threadId].mails.push(mailId);
-      state.threads[threadId].lastSender = from;
+      state.threads[threadId].senders.push(from);
       state.threads[threadId].lastSendTime = createdAt;
 
       // Mails에 추가
@@ -79,6 +92,8 @@ export const userSlice = createSlice({
         createdAt,
         threadId,
       };
+
+      // Users에
     },
   },
 });

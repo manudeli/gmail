@@ -34,7 +34,7 @@ export const users = {
   'user-3': {
     username: 'Nadine T. Campos',
     email: 'nadine@email.com',
-    threads: ['thread-1', 'thread-2'],
+    threads: [],
     image: '/assets/profiles/profile2.jpg',
     starThreads: { 'thread-1': { isStar: true }, 'thread-2': { isStar: true } },
     starMails: { 'mail-1': { isStar: true }, 'mail-2': { isStar: true } },
@@ -46,7 +46,7 @@ export const users = {
   'user-4': {
     username: 'Casey O. Robbins',
     email: 'casey@email.com',
-    threads: ['thread-1', 'thread-2'],
+    threads: [],
     image: '/assets/profiles/profile3.jpg',
     starThreads: { 'thread-1': { isStar: true }, 'thread-2': { isStar: true } },
     starMails: { 'mail-1': { isStar: true }, 'mail-2': { isStar: true } },
@@ -58,7 +58,7 @@ export const users = {
   'user-5': {
     username: 'Carla J. Naquin',
     email: 'carla@email.com',
-    threads: ['thread-1', 'thread-2'],
+    threads: [],
     image: '/assets/profiles/profile4.jpg',
     starThreads: { 'thread-1': { isStar: true }, 'thread-2': { isStar: true } },
     starMails: { 'mail-1': { isStar: true }, 'mail-2': { isStar: true } },
@@ -97,19 +97,19 @@ export const threads = {
   'thread-1': {
     title: '[TouchFlow] Hello, Jonghyeon',
     mails: ['mail-0', 'mail-1'],
-    lastSender: 'user-1',
     lastSendTime: 1626517113349,
+    senders: ['user-1', 'user-2'],
   },
   'thread-2': {
     title: '[Google] I should hire you',
     mails: ['mail-1', 'mail-2'],
-    lastSender: 'user-2',
     lastSendTime: 1626517113349,
+    senders: ['user-1'],
   },
   'thread-3': {
     title: 'Issues',
     mails: ['mail-2', 'mail-0'],
-    lastSender: 'user-1',
     lastSendTime: 1626517113349,
+    senders: ['user-2'],
   },
 };

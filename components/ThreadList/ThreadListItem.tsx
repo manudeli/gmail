@@ -19,8 +19,11 @@ export const ThreadListItem = ({ thread, onClickHandle }: Props) => {
     (state) => state.user.userProfile.starThreads
   );
   const CheckedThreads = useAppSelector((state) => state.inbox.checkedThreads);
-  const lastSenderName = useAppSelector(
-    (state) => state.db.users[thread.lastSender].username
+  const senderNames = useAppSelector((state) =>
+    thread.senders.map((userId) => {
+      if (currentUserId === userId) return 'me';
+      return state.db.users[userId].username;
+    })
   );
   const lastSendTime = dayjs(thread.lastSendTime).format('MMMM D');
 
@@ -48,7 +51,14 @@ export const ThreadListItem = ({ thread, onClickHandle }: Props) => {
           }}
         />
 
-        <div className="w-48 ml-4">{lastSenderName}</div>
+        <div className="w-48 ml-4 overflow-ellipsis">
+          {senderNames.map((name, index) => (
+            <span>
+              {name}
+              {senderNames.length - 1 === index ? '' : ', '}
+            </span>
+          ))}
+        </div>
         <h3 className="flex-1">{thread.title}</h3>
         <div className="text-sm">{lastSendTime}</div>
       </div>
