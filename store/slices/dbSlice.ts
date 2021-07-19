@@ -34,12 +34,14 @@ export const userSlice = createSlice({
         const currentEmailIndex = toEmails.indexOf(state.users[userId].email);
         if (currentEmailIndex !== -1) {
           objectUserIds[userId] = true;
+          // DB에 새 Thread 생성
           state.threads[threadId] = {
             title,
             mails: [mailId],
             lastSender: from,
             lastSendTime: createdAt,
           };
+          // DB에 새 Mail 생성
           state.mails[mailId] = {
             from,
             content,
@@ -52,10 +54,37 @@ export const userSlice = createSlice({
         return state.users[userId];
       });
     },
+    sendReply: (state, { payload }) => {
+      const { toEmails, from, content, threadId, mailId, createdAt } = payload;
+      const to = {};
+
+      Object.keys(state.users).forEach((userId) => {
+        const indexOfToEmails = toEmails.indexOf(state.users[userId].email);
+        if (indexOfToEmails !== -1) {
+          toEmails[indexOfToEmails];
+          to[userId] = true;
+        }
+      });
+
+      // Thread 업데이트
+      state.threads[threadId].mails.push(mailId);
+      state.threads[threadId].lastSender = from;
+      state.threads[threadId].lastSendTime = createdAt;
+
+      // Mails에 추가
+      state.mails[mailId] = {
+        from,
+        to,
+        content,
+        createdAt,
+        threadId,
+      };
+    },
   },
 });
 
-export const { setAllDB, setStarThreadDB, sendEmail } = userSlice.actions;
+export const { setAllDB, setStarThreadDB, sendEmail, sendReply } =
+  userSlice.actions;
 
 export const selectDB = (state: RootState) => state.db;
 

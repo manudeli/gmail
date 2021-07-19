@@ -1,13 +1,9 @@
-import { Uid } from './../model/users';
-import { CurrentTab } from './../model/ui';
-import { ThreadId, MailId, Thread } from '../model/mails';
-
 // Initial Data
 export const users = {
   'user-1': {
     username: 'Jonghyeon Ko',
     email: 'flowithusdev@gmail.com',
-    threads: ['thread-1', 'thread-2'],
+    threads: ['thread-1', 'thread-2', 'thread-3'],
     image: '/assets/profiles/profile0.jpg',
     starThreads: { 'thread-1': { isStar: true } },
     starMails: { 'mail-1': { isStar: true }, 'mail-2': { isStar: true } },
@@ -111,9 +107,9 @@ export const threads = {
     lastSendTime: 1626517113349,
   },
   'thread-3': {
-    title: 'thread-title3',
-    mails: ['mail-2'],
-    lastSender: 'user-3',
+    title: 'Issues',
+    mails: ['mail-2', 'mail-0'],
+    lastSender: 'user-1',
     lastSendTime: 1626517113349,
   },
 };

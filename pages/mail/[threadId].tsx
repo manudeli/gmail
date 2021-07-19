@@ -1,8 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { MailCompose } from '../../components/Mail/MailCompose';
-import Button from '../../components/UI/Button';
-
 import { ThreadId } from '../../model/mails';
 import { useAppSelector } from '../../store/hooks';
 
