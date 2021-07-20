@@ -88,6 +88,9 @@ export const userSlice = createSlice({
         if (indexOfToEmails !== -1) {
           toEmails[indexOfToEmails];
           to[userId] = true;
+
+          // 받는 사람의 쓰레드 읽음 취소
+          delete state.users[userId].readThreads[threadId];
         }
       });
 
@@ -110,6 +113,10 @@ export const userSlice = createSlice({
         threadId,
       };
     },
+    readThreadDB: (state, { payload }) => {
+      const { currentUserId, threadId } = payload;
+      state.users[currentUserId].readThreads[threadId] = true;
+    },
   },
 });
 
@@ -119,6 +126,7 @@ export const {
   setImportantThreadDB,
   sendEmail,
   sendReply,
+  readThreadDB,
 } = userSlice.actions;
 
 export const selectDB = (state: RootState) => state.db;

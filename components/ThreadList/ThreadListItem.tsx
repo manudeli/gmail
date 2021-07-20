@@ -21,6 +21,9 @@ interface Props {
 export const ThreadListItem = ({ thread, onClickHandle }: Props) => {
   const dispatch = useAppDispatch();
   const currentUserId = useAppSelector((state) => state.user.userProfile.id);
+  const currentUserReadThreads = useAppSelector(
+    (state) => state.user.userProfile.readThreads
+  );
   const myStarThreads = useAppSelector(
     (state) => state.user.userProfile.starThreads
   );
@@ -38,7 +41,11 @@ export const ThreadListItem = ({ thread, onClickHandle }: Props) => {
 
   return (
     <li onClick={() => onClickHandle()}>
-      <div className="flex items-center border-b border-opacity-60 pr-4">
+      <div
+        className={`flex items-center border-b border-opacity-60 pr-4  ${
+          currentUserReadThreads[thread.id] ? '' : 'font-bold'
+        }`}
+      >
         <ToggleIconButton
           icon="check_box"
           tooltip="check"
@@ -83,7 +90,7 @@ export const ThreadListItem = ({ thread, onClickHandle }: Props) => {
             </span>
           ))}
         </div>
-        <h3 className="flex-1">{thread.title}</h3>
+        <h3 className={`flex-1`}>{thread.title}</h3>
         <div className="text-sm">{lastSendTime}</div>
       </div>
     </li>

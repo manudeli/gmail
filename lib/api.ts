@@ -18,6 +18,7 @@ export const users = {
         { 'mail-1': { isPerfectDelete: false } },
       ],
     },
+    readThreads: {},
   },
   'user-2': {
     username: 'Martin L. Olson',
@@ -30,6 +31,7 @@ export const users = {
       'thread-1': { isImportant: true },
       'thread-2': { isImportant: true },
     },
+    readThreads: {},
   },
   'user-3': {
     username: 'Nadine T. Campos',
@@ -41,6 +43,7 @@ export const users = {
     importantThreads: {
       'thread-1': { isImportant: true },
     },
+    readThreads: {},
   },
   'user-4': {
     username: 'Casey O. Robbins',
@@ -53,6 +56,7 @@ export const users = {
       'thread-1': { isImportant: true },
       'thread-2': { isImportant: true },
     },
+    readThreads: {},
   },
   'user-5': {
     username: 'Carla J. Naquin',
@@ -65,6 +69,7 @@ export const users = {
       'thread-1': { isImportant: true },
       'thread-2': { isImportant: true },
     },
+    readThreads: {},
   },
 };
 

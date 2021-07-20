@@ -8,7 +8,12 @@ interface LoginListProps {
 }
 
 function LoginList({ hideLoggedInUser = false }: LoginListProps) {
-  const userProfiles = useAppSelector((state) => state.user.userProfiles);
+  const userProfiles = useAppSelector((state) =>
+    Object.keys(state.db.users).map((userId) => ({
+      id: userId,
+      ...state.db.users[userId],
+    }))
+  );
   const loggedInUserProfile = useAppSelector((state) => state.user.userProfile);
   const dispatch = useAppDispatch();
 
