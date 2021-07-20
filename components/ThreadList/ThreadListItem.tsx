@@ -42,47 +42,54 @@ export const ThreadListItem = ({ thread, onClickHandle }: Props) => {
   return (
     <li onClick={() => onClickHandle()}>
       <div
-        className={`flex items-center border-b border-opacity-60 pr-4  ${
-          currentUserReadThreads[thread.id] ? '' : 'font-bold'
+        className={`flex items-center border-b border-opacity-80 pr-4 ${
+          currentUserReadThreads[thread.id]
+            ? 'font-light bg-black bg-opacity-5'
+            : 'font-semibold'
         }`}
       >
-        <ToggleIconButton
-          icon="check_box"
-          tooltip="check"
-          isChecked={CheckedThreads[thread.id] && true}
-          onClick={() => {
-            dispatch(setCheckThread({ threadId: thread.id }));
-          }}
-        />
-        <ToggleIconButton
-          icon="star"
-          tooltip="Star"
-          isChecked={myStarThreads[thread.id] && true}
-          onClick={() => {
-            dispatch(
-              setStarThreadDB({ userId: currentUserId, threadId: thread.id })
-            );
-            dispatch(setStarThread({ threadId: thread.id }));
-            // fetch Star After, if failed cancel setStarThread
-          }}
-        />
-        <ToggleIconButton
-          icon="label_important"
-          tooltip="Important"
-          isChecked={myImportantThreads[thread.id] && true}
-          onClick={() => {
-            dispatch(
-              setImportantThreadDB({
-                userId: currentUserId,
-                threadId: thread.id,
-              })
-            );
-            dispatch(setImportantThread({ threadId: thread.id }));
-            // fetch Star After, if failed cancel setStarThread
-          }}
-        />
+        <div className="flex">
+          <ToggleIconButton
+            icon="check_box"
+            tooltip="check"
+            isChecked={CheckedThreads[thread.id] && true}
+            onClick={() => {
+              dispatch(setCheckThread({ threadId: thread.id }));
+            }}
+          />
+          <ToggleIconButton
+            icon="star"
+            tooltip="Star"
+            isChecked={myStarThreads[thread.id] && true}
+            onClick={() => {
+              dispatch(
+                setStarThreadDB({ userId: currentUserId, threadId: thread.id })
+              );
+              dispatch(setStarThread({ threadId: thread.id }));
+              // fetch Star After, if failed cancel setStarThread
+            }}
+          />
+          <ToggleIconButton
+            icon="label_important"
+            tooltip="Important"
+            isChecked={myImportantThreads[thread.id] && true}
+            onClick={() => {
+              dispatch(
+                setImportantThreadDB({
+                  userId: currentUserId,
+                  threadId: thread.id,
+                })
+              );
+              dispatch(setImportantThread({ threadId: thread.id }));
+              // fetch Star After, if failed cancel setStarThread
+            }}
+          />
+        </div>
 
-        <div className="w-48 ml-4 overflow-ellipsis">
+        <div
+          className="ml-4 w-48 whitespace-nowrap
+          overflow-hidden overflow-ellipsis pr-4"
+        >
           {senderNames.map((name, index) => (
             <span>
               {name}
@@ -90,7 +97,24 @@ export const ThreadListItem = ({ thread, onClickHandle }: Props) => {
             </span>
           ))}
         </div>
-        <h3 className={`flex-1`}>{thread.title}</h3>
+        <div className="flex-1 overflow-hidden">
+          <h3 className={`flex items-center`}>
+            <div
+              className="whitespace-nowrap
+          overflow-hidden overflow-ellipsis"
+            >
+              {thread.title}
+            </div>
+            <div
+              className="text-gray-500
+          text-sm whitespace-nowrap
+          overflow-hidden overflow-ellipsis
+          flex-1 font-light pl-1"
+            >
+              - {thread.lastMailContent}
+            </div>
+          </h3>
+        </div>
         <div className="text-sm">{lastSendTime}</div>
       </div>
     </li>

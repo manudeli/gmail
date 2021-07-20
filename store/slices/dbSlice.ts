@@ -62,6 +62,7 @@ export const userSlice = createSlice({
         accesses,
         lastSendTime: createdAt,
         creator: from,
+        lastMailContent: content,
       };
 
       // MailsDB에 새 Mail 생성
@@ -103,6 +104,7 @@ export const userSlice = createSlice({
         });
       }
       state.threads[threadId].lastSendTime = createdAt;
+      state.threads[threadId].lastMailContent = content;
 
       // Mails에 추가
       state.mails[mailId] = {
