@@ -33,7 +33,7 @@ export default function HomePage() {
     <div className="flex flex-col justify-center items-center h-screen">
       <Head>
         <title>Gmail - Login</title>
-        <meta name="description" content="Gmail - Mail" />
+        <meta name="description" content="Gmail Cloning by Jonghyeon" />
       </Head>
       <div
         className="flex flex-col justify-center items-center border border-gray-200

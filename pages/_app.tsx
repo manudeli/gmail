@@ -20,6 +20,7 @@ function App({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Head>
+            <title>Gmail - Clone by Jonghyeon</title>
             <link
               href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet"
