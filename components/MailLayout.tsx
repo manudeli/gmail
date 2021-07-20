@@ -33,7 +33,9 @@ function MailLayout({ children }) {
               </div>
             </div>
           )}
-          <div className="mail-list overflow-y-auto">{children}</div>
+          <div className={`${isloggedIn ? 'mail-list' : ''}  overflow-y-auto`}>
+            {children}
+          </div>
         </div>
       </div>
     </div>

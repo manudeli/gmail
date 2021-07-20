@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { MailCompose } from '../../components/Mail/MailCompose';
+
 import { ThreadId } from '../../model/mails';
 import { useAppSelector } from '../../store/hooks';
 
@@ -24,7 +25,7 @@ function ThreadCompose() {
   });
 
   return (
-    <div>
+    <>
       <Head>
         <title>{thread.title}</title>
       </Head>
@@ -44,7 +45,7 @@ function ThreadCompose() {
           </>
         ))}
       </ul>
-    </div>
+    </>
   );
 }
 
