@@ -34,7 +34,7 @@ export const ThreadListItem = ({ thread, onClickHandle }: Props) => {
       return state.db.users[userId].username;
     })
   );
-  const lastSendTime = dayjs(thread.lastSendTime).format('MMMM D');
+  const lastSendTime = dayjs(thread.lastSendTime).format('MMMM D, YYYY');
 
   return (
     <li onClick={() => onClickHandle()}>

@@ -100,6 +100,7 @@ export const ComposeButtonModal = ({
             );
           })}
           <input
+            autoFocus
             value={emailInput}
             onChange={(e) => setEmailInput(e.target.value)}
             onKeyPress={(e) => handleKeyPress(e)}

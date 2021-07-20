@@ -21,6 +21,8 @@ export const MailCompose = ({ mail, isLastMail }: Props) => {
   const currentUserImage = useAppSelector(
     (state) => state.user.userProfile.image
   );
+
+  const [emailInput, setEmailInput] = useState('');
   const [isOpenModal, setIsOpenModal] = useState(false);
   const users = useAppSelector((state) => state.db.users);
   const fromUser = users[from];
@@ -58,6 +60,35 @@ export const MailCompose = ({ mail, isLastMail }: Props) => {
     dispatch(sendReply(form));
   };
 
+  const handleRecipients = () => {
+    const email = emailInput.trim();
+    const index = form.toEmails.findIndex((el) => el === emailInput);
+
+    if (index === -1 && email !== '') {
+      const cp = [...form.toEmails];
+      cp.push(email);
+      setForm((prev) => {
+        prev.toEmails = cp;
+        return prev;
+      });
+    }
+    setEmailInput('');
+  };
+
+  const handleKeyPress = (e) => {
+    const { code } = e;
+
+    if (code === 'Space') {
+      handleRecipients();
+    }
+  };
+
+  const handleDeleteToEmail = (index: number) => {
+    const newForm = { ...form };
+    newForm.toEmails.splice(index, 1);
+    setForm(newForm);
+  };
+
   return (
     <li className="pt-4">
       <div className="flex pb-5">
@@ -81,11 +112,10 @@ export const MailCompose = ({ mail, isLastMail }: Props) => {
             </div>
             <div className="flex items-center text-xs text-gray-600">
               <span>{dayjs(date).format('MMMM DD, YYYY, H:ss A')}</span>{' '}
-              <IconButton icon="star_outline" tooltip="Not starred" />
               <IconButton
                 icon="reply"
                 tooltip="Reply"
-                onClick={() => setIsOpenModal(true)}
+                onClick={() => setIsOpenModal((prev) => !prev)}
               />
               <IconButton icon="more_vert" tooltip="More" />
             </div>
@@ -123,16 +153,32 @@ export const MailCompose = ({ mail, isLastMail }: Props) => {
                 <span>To</span>
                 {form.toEmails.map((toEmail, index) => {
                   return (
-                    <input
-                      value={toEmail}
-                      onChange={(e) => handleChangeForm(e, 'toEmails', index)}
-                      className="outline-none flex-1 ml-2"
-                      placeholder="Recipients"
-                    />
+                    <span
+                      className="flex items-center rounded-full px-2 ml-1 text-gray-700 font-semibold"
+                      style={{ boxShadow: 'inset 0 0 1px rgba(0,0,0,0.8)' }}
+                    >
+                      {toEmail}{' '}
+                      <i
+                        className="material-icons -mr-1"
+                        style={{ fontSize: 16 }}
+                        onClick={() => handleDeleteToEmail(index)}
+                      >
+                        close
+                      </i>
+                    </span>
                   );
                 })}
+                <input
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  onKeyPress={(e) => handleKeyPress(e)}
+                  onBlur={() => handleRecipients()}
+                  className="outline-none flex-1 ml-2"
+                  placeholder={form.toEmails.length ? '' : 'Recipients'}
+                />
               </div>
               <textarea
+                autoFocus
                 value={form.content}
                 onChange={(e) => handleChangeForm(e, 'content')}
                 className="outline-none p-2"
